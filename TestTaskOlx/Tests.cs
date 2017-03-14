@@ -16,10 +16,10 @@ namespace TestTaskOlx
         [Test]
         public void AdCreationTest()
         {
-            MainPage mainPage = new MainPage();
-            LoginPage loginPage = mainPage.CreateAd();
-            CreateAdPage createAdPage = loginPage.FillLoginForm("sasha_olx@binka.me", "qwerty");
-            CreateAdPageSuccessful success = createAdPage.FillAdFrom();
+            var mainPage = new MainPage();
+            var loginPage = mainPage.CreateAd();
+            var createAdPage = loginPage.FillLoginForm("sasha_olx@binka.me", "qwerty");
+            var success = createAdPage.FillAdFrom();
             success.IsEqual();
         }
 
