@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.PageObjects;
@@ -11,7 +6,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace TestTaskOlx
 {
-    class CreateAdPage
+    internal class CreateAdPage
     {
         public CreateAdPage()
         {
@@ -29,10 +24,7 @@ namespace TestTaskOlx
 
         [FindsBy(How = How.Id, Using = "add-phone")]
         public IWebElement Phone { get; set; }
-
-        [FindsBy(How = How.XPath, Using = "//*[@id='box-free']/label[2]")]
-        public IWebElement AdType { get; set; }
-
+        
         [FindsBy(How = How.XPath, Using = "//*[@id='save']")]
         public IWebElement Submit { get; set; }
 
@@ -45,7 +37,6 @@ namespace TestTaskOlx
             SelectAnimal();
             SelectRole();
             SelectLocation();
-            AdType.Click();
             ScrollToElement(By.XPath("//*[@id='footerPartners']/span"));
             Submit.Click();
             return new CreateAdPageSuccessful();
@@ -57,7 +48,6 @@ namespace TestTaskOlx
             DriverInit.Driver.FindElement(By.XPath(".//*[@id='cat-35']/span[1]")).Click();
             DriverInit.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
             DriverInit.Driver.FindElement(By.XPath("//*[@id='category-35']//li[1]/a")).Click();
-            //DriverInit.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
 
         public void SelectAnimal()
@@ -88,7 +78,7 @@ namespace TestTaskOlx
         public void ScrollToElement(By selector)
         {
             var element = DriverInit.Driver.FindElement(selector);
-            Actions actions = new Actions(DriverInit.Driver);
+            var actions = new Actions(DriverInit.Driver);
             actions.MoveToElement(element);
             actions.Perform();
         }
@@ -96,11 +86,9 @@ namespace TestTaskOlx
 
         public static void WaitForElementLoad(By by, int timeoutInSeconds)
         {
-            if (timeoutInSeconds > 0)
-            {
-                WebDriverWait wait = new WebDriverWait(DriverInit.Driver, TimeSpan.FromSeconds(timeoutInSeconds));
-                wait.Until(ExpectedConditions.ElementIsVisible(by));
-            }
+            if (timeoutInSeconds <= 0) return;
+            var wait = new WebDriverWait(DriverInit.Driver, TimeSpan.FromSeconds(timeoutInSeconds));
+            wait.Until(ExpectedConditions.ElementIsVisible(@by));
         }
 
     }
