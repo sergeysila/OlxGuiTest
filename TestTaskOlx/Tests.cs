@@ -5,11 +5,6 @@ namespace TestTaskOlx
 {
     internal class Tests
     {
-        private static void Main()
-        {
-            
-        }
-
         [SetUp]
         public void Open()
         {
